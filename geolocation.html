@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Sean Coggeshall">
+    <meta name="keywords" content="video games, geolocation, location services, modern gaming">
+    <meta name="description" content="Demonstration of the HTML5 Geolocation API and its impact on modern gaming.">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="menu.js" defer></script>
+    <title>Find Me! (Geolocation Demo)</title>
+    <script>
+        function getLocation() {
+            const status = document.getElementById('geo-status');
+            const output = document.getElementById('geo-output');
+
+            // Check if geolocation is supported
+            if (!navigator.geolocation) {
+                status.textContent = "Geolocation is not supported by your browser.";
+                return;
+            }
+
+            status.textContent = "Locating...";
+
+            navigator.geolocation.getCurrentPosition(success, error);
+
+            function success(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                
+                status.textContent = "Location found!";
+                output.innerHTML = `
+                    <p><strong>Latitude:</strong> ${latitude.toFixed(4)}</p>
+                    <p><strong>Longitude:</strong> ${longitude.toFixed(4)}</p>
+                `;
+            }
+
+            function error() {
+                status.textContent = "Unable to retrieve location (permission denied or error).";
+            }
+        }
+    </script>
+</head>
+<body>
+
+<header id="site-header">
+    <button id="hamburger-btn" aria-label="Open/Close Navigation">&#9776;</button>
+    <h1>Geolocation in Modern Gaming</h1>
+    <p>How location services are used to create new experiences in the gaming world.</p>
+</header>
+
+<nav id="main-nav">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="console-wars.html">Console Wars</a></li>
+        <li><a href="favorite-games.html">My Favorite Games</a></li>
+        <li><a href="game-form.html">Preferences</a></li>
+        <li><a href="online-gaming.html">Online Gaming</a></li>
+        <li><a href="geolocation.html">Find Me!</a></li>
+    </ul>
+</nav>
+
+<main id="site-main">
+    <section>
+        <h2>Location-Based Gaming</h2>
+        <p>With the rise of smartphones and mobile apps, location-based gaming has become incredibly popular. One of the most famous examples is <strong>Pokémon Go</strong>, which uses your real-time location to populate the game world with virtual creatures, gyms, and PokéStops based on your neighborhood and local landmarks.</p>
+        <p>Beyond Pokémon Go, many other titles use geolocation to create unique experiences—like treasure hunts, augmented reality quests, or events that only occur in certain physical places. This layer of geographic context adds a whole new dimension to gaming that was impossible just a decade ago.</p>
+    </section>
+
+    <section>
+        <h2>Try the Geolocation API</h2>
+        <p>Click the button below to see how HTML5’s Geolocation API can detect your current coordinates (with your permission). Modern browsers generally require a secure context (HTTPS) to allow accurate location retrieval. Please note that if you deny permission, we won’t be able to show your location.</p>
+        <button onclick="getLocation()" id="new-fact">Get My Location</button>
+        <p id="geo-status"></p>
+        <div id="geo-output"></div>
+    </section>
+
+    <section>
+        <h2>Privacy Considerations</h2>
+        <p>While geolocation can create innovative and immersive gaming experiences, it also raises privacy concerns. Players must remain aware of how apps use and store their location data. Game developers are responsible for being transparent about data usage and offering controls so users can opt out or limit data collection.</p>
+        <p>Despite these challenges, geolocation will likely continue to be a core aspect of modern gaming. As technology evolves, we can expect more sophisticated blending of real-world locations, augmented reality, and immersive multiplayer experiences that depend on where you are in the real world.</p>
+    </section>
+</main>
+
+<footer id="site-footer">
+    <p>Sean Coggeshall | Intermediate Web Development WEBD221</p>
+</footer>
+
+</body>
+</html>
